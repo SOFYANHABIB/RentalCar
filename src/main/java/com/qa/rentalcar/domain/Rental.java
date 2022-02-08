@@ -1,23 +1,49 @@
 package com.qa.rentalcar.domain;
 
+import java.util.Objects;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "rental")
 public class Rental {
 	
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column
 	private int id;
 	
+	
+	@Column
 	private int clienId;
 	
+	@Column
 	private int carId;
 	
+
+	@Column
 	private String clientName;
 	
+	@Column
 	private String carType;
 	
+	@Column
 	private String carBrand;
 	
+	@Column
 	private int rentalPeriod;
 	
+	@Column
 	private  boolean carBack;
 	
+	@Column
 	private float rentalCost;
 
 	
@@ -168,6 +194,35 @@ public class Rental {
 	public void setRentalCost(float rentalCost) {
 		this.rentalCost = rentalCost;
 	}
+
+
+    
+	//Hash code and equals
+	@Override
+	public int hashCode() {
+		return Objects.hash(carBack, carBrand, carId, carType, clienId, clientName, rentalCost, rentalPeriod);
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Rental other = (Rental) obj;
+		return carBack == other.carBack && Objects.equals(carBrand, other.carBrand) && carId == other.carId
+				&& Objects.equals(carType, other.carType) && clienId == other.clienId
+				&& Objects.equals(clientName, other.clientName)
+				&& Float.floatToIntBits(rentalCost) == Float.floatToIntBits(other.rentalCost)
+				&& rentalPeriod == other.rentalPeriod;
+	}
+	
+	
+	
 	
 	
 	
